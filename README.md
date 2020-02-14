@@ -1,6 +1,6 @@
-# bvp_ieee
+# ieee_app
 
-A new Flutter project.
+IEEE App.
 
 ## Getting Started
 
