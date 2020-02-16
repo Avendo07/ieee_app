@@ -1,5 +1,5 @@
 
-import 'package:bvp_ieee/addworkshop.dart';
+//import 'package:bvp_ieee/addworkshop.dart';
 import 'package:bvp_ieee/class_workshop.dart';
 import 'package:flutter/material.dart';
 
@@ -17,59 +17,261 @@ List<Workshop>  workshops=[Workshop('images/bvp.jpg',null),Workshop('images/bvp2
   @override
     Widget build(context)
     {
-      return Scaffold(
-           appBar: AppBar(
-             title: Text("BVPIEEE SOCIETY"),
-             leading: Icon(Icons.apps),
-             actions: <Widget>[
-              IconButton(icon:  Icon(Icons.note_add),
-               onPressed: (){
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => Addworkshops()));
-               },),
-             ],
-           ),
-          drawer: drawers(),
-          body: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-              
-              children: <Widget>[
-                latestnews(),
-                 news(),
-                workshopes(),
-                workshopsliding(),
- 
-                
+      return DefaultTabController(
+             length: 3,
+              child: Scaffold(
+             appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120),
+          child: AppBar(
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: IconButton(icon: Icon(Icons.notifications), onPressed: () {},),
+              )
+            ],
+            title: Text("BVPIEEE"),
+            backgroundColor: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(50)) ),
+            bottom: TabBar(
+              indicatorPadding: EdgeInsets.only(left: 15.0, right: 15.0),
+             
+              tabs: <Widget>[
+                Tab(
+                  text: "Home",
+                  icon: Icon(Icons.home),
+                ),
+                Tab(
+                  text: "Upcoming",
+                  icon: Icon(Icons.event),
+                ),
+                Tab(
+                  text: "Chapters",
+                  icon: Icon(Icons.collections_bookmark),
+                ),
               ],
             ),
           ),
-                );
+        ),
+        body: TabBarView(
+          
+          children: <Widget>[
+            SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                
+                children: <Widget>[
+                  latestnews(),
+                   Card(child: news(entries.length-1)),
+                   Card(child: news(entries.length-2)),
+                   Card(child: news(entries.length-3)),
+                  workshopes(),
+                  Card(child: workshopsliding()),
+                  aboutus(),
+ 
+                  
+                ],
+              ),
+            ),
+            Center(child: Text("Upcoming events appear here")),
+            Center(child: Text("Chapters apear here")),
+          ],
+        ),
+  
+            drawer: drawers(),
+            
+                  ),
+      );
     }
+
+    Widget aboutus()
+    {
+      return Container(
+                margin : EdgeInsets.only(left: 20,top: 30,right: 200),
+                child: Text("About us",style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 20,
+                  
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic, 
+                  
+
+
+                )),
+                
+              ); }
 
     Widget drawers()
     {
-      return Drawer(
-        
-            child: ListView(
-              children: <Widget>[
-                UserAccountsDrawerHeader(accountName: Text('Ashisharora')
-                , accountEmail: Text('Ashisharora'),
-                currentAccountPicture: null,),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Setting'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.add_box),
-                  title: Text('About us'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('Logout'),
-                ),
-              ],
+      return  Drawer(
+        child: ListView(
+          children: <Widget>[
+            Container(
+              child: Stack(
+                children: <Widget>[
+                  Image.asset('images/wall.jpg'),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.only(top: 90, left: 3),
+                          child: Icon(
+                            Icons.account_circle,
+                            size: 60,
+                          ),),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 100, left: 10),
+                        child: Text("johnexample@gmail.com", style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold
+                        ),),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          );
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, right: 10.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).selectedRowColor,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(30.0)
+                      )
+                    ),
+                    child: ListTile(
+                      leading: Icon(Icons.home, color: Colors.black),
+                      title: Text("Home"),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.message, color: Colors.black),
+                    title: Text("Discussion Forum"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.highlight, color: Colors.black),
+                    title: Text("Highlights"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.image, color: Colors.black),
+                    title: Text("Resources"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 12.0, left: 12.0),
+              child: Text("CHAPTERS"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.directions_car, color: Colors.black),
+                    title: Text("Robotic & Automation"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.computer, color: Colors.black),
+                    title: Text("Computer Society"),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.hourglass_empty, color: Colors.black),
+                    title: Text("Industry & Automation"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.add_to_queue, color: Colors.black),
+                    title: Text("HKN Lambda ETA"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.pregnant_woman, color: Colors.black),
+                    title: Text("Women In Engineering"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 12.0, left: 12.0),
+              child: Text("ACCOUNT"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.account_circle, color: Colors.black),
+                    title: Text("My Account"),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.exit_to_app, color: Colors.black),
+                    title: Text("Log Out"),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
     }
     Widget latestnews()
     {
@@ -131,16 +333,14 @@ Widget workshopsliding()
       
     }
 
-    Widget news()
-    {
-        return SizedBox(
-          height: 500,
-          child: ListView.builder(
-         scrollDirection: Axis.vertical,
-        itemCount: entries.length,
-        itemBuilder: (BuildContext context, int index) {
-          
-                 if(index%2==0)
+    Widget news(int index)
+    {  
+         if(index<0)
+         {
+           return null;
+         } 
+
+         if(index%2==0)
                  {
                    
                    return  Container(
@@ -210,8 +410,8 @@ Widget workshopsliding()
         
         );
         }
-       }
-        ));
+       
+        
     }
 
     

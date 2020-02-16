@@ -46,7 +46,7 @@ flutter:
     - images/bvp.jpg
     - images/bvp1.jpg
     - images/bvp2.jpg
-
+    - images/wall.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
