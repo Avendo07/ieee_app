@@ -52,8 +52,7 @@ class _MyAboutPageState extends State<MyAboutPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
+          title: Text('BVPIEE SOCIETY'),
         ),
         body: Column(children: <Widget>[
           Text(
