@@ -39,7 +39,6 @@ List<Workshop>  workshops=[Workshop('images/bvp.jpg',null),Workshop('images/bvp2
                   Card(child: workshopsliding()),
 //                  aboutus(),
 
-
                 ],
               ),
             ),
