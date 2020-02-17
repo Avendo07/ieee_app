@@ -1,6 +1,7 @@
 
-import 'package:bvp_ieee/addworkshop.dart';
-import 'package:bvp_ieee/class_workshop.dart';
+import 'package:ieee_app/addworkshop.dart';
+import 'package:ieee_app/class_workshop.dart';
+import 'package:ieee_app/AboutUs.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatefulWidget
@@ -62,6 +63,9 @@ List<Workshop>  workshops=[Workshop('images/bvp.jpg',null),Workshop('images/bvp2
                 ListTile(
                   leading: Icon(Icons.add_box),
                   title: Text('About us'),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.person),
