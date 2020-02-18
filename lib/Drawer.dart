@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:bvp_ieee/AboutUs.dart';
+
 BuildContext con;
 class DRAWER extends StatefulWidget{
 
@@ -183,6 +185,21 @@ class DRAWERState extends State {
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.add_box),
+                  title: Text('About us'),
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUs()));
+                  },
+                ),
+              ],
+            ),
+          ),
+
         ],
       ),
     );

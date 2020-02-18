@@ -1,3 +1,4 @@
+import 'package:bvp_ieee/AboutUs.dart';
 import 'package:bvp_ieee/Class_Workshop.dart';
 import 'package:bvp_ieee/Drawer.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ List<Workshop>  workshops=[Workshop('images/bvp.jpg',null),Workshop('images/bvp2
                    Card(child: news(entries.length-3)),
                   workshopes(),
                   Card(child: workshopsliding()),
-//                  aboutus(),
+                  //AboutUs(),
 
                 ],
               ),
