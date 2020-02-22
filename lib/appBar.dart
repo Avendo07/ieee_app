@@ -19,14 +19,21 @@ class App_BarState extends State {
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
+<<<<<<< HEAD
           
+=======
+>>>>>>> 599f3d14a46d33acec12407dff801ff2a307f790
           child: IconButton(
             icon: Icon(Icons.notifications),
             onPressed: () {},
           ),
         )
       ],
+<<<<<<< HEAD
       title: Text("BVPIEEEE"),
+=======
+      title: Text("BVPIEEE"),
+>>>>>>> 599f3d14a46d33acec12407dff801ff2a307f790
       backgroundColor: Theme.of(context).primaryColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
