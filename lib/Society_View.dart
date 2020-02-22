@@ -26,6 +26,7 @@ class SocietyViewState extends State
          title: Text('BVPIEEE SOCIETY'),
          shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
+          automaticallyImplyLeading: false,
         ),
         body: Column(
           children: <Widget>[

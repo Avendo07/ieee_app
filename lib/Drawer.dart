@@ -2,6 +2,7 @@ import 'package:bvp_ieee/Society_View.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/AboutUs.dart';
+import 'package:bvp_ieee/Attendance.dart';
 
 BuildContext con;
 class DRAWER extends StatefulWidget{
@@ -174,6 +175,21 @@ class DRAWERState extends State {
               ],
             ),
           ),
+                   Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.exit_to_app, color: Colors.black),
+                  title: Text("Attendance"),
+                  onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)
+                   {   return Attendance();}
+                  ));}
+                ),
+              ],
+            ),
+          ),
+          
           Padding(
             padding: EdgeInsets.only(top: 12.0, left: 12.0),
             child: Text("ACCOUNT"),

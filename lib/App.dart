@@ -4,6 +4,7 @@ import 'package:bvp_ieee/Drawer.dart';
 import 'package:bvp_ieee/Societydetail.dart';
 import 'package:bvp_ieee/society_listview.dart';
 import 'package:flutter/material.dart';
+import 'package:bvp_ieee/Attendance.dart';
 
 import './appBar.dart';
 
@@ -13,9 +14,9 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-List<Workshop>  entries = [Workshop('images/bvp.jpg', 'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),Workshop('images/bvp1.jpg', 'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields '),Workshop('images/bvp2.jpg','BVPIEEE Computer Society (sometimes abbreviated Computer Society or CS) is a professional society of IEEE. Its purpose and scope is “to advance the theory, practice, and application of computer and information processing science and technology” and the “professional standing of its members.')];
-List<Workshop>  workshops=[Workshop('images/bvp.jpg',null),Workshop('images/bvp2.jpg',null)];
-
+List<Workshop>  entries = [Workshop('Arduino','images/bvp.jpg', 'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),Workshop('Arduino','images/bvp1.jpg', 'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields '),Workshop('Arduino','images/bvp2.jpg','BVPIEEE Computer Society (sometimes abbreviated Computer Society or CS) is a professional society of IEEE. Its purpose and scope is “to advance the theory, practice, and application of computer and information processing science and technology” and the “professional standing of its members.')];
+List<Workshop>  workshops=[Workshop('Arduino','images/bvp.jpg',null),Workshop('RAS','images/bvp2.jpg',null)];
+static List<Workshop> workshop =[];
 static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a society of BVCOE affiliated to IEEE.When you join IEEE, you join a community of over 425,000 technology and engineering professionals united by a common desire to continuously learn, interact, collaborate, and innovate. IEEE Membership provides you with the resources and opportunities you need to keep on top of changes in technology; get involved in standards development; network with other professionals in your local area or within a specific technical interest; mentor the next generation of engineers and technologists, and so much more. ','images/bvp1.jpg',['Ashish'],['ashisharora111122@gmail.com'])];
   @override
   Widget build(context) {

@@ -47,6 +47,8 @@ class _MyAboutPageState extends State<MyAboutPage> {
           title: Text('BVPIEE SOCIETY'),
           shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
+          automaticallyImplyLeading: false,
+                 
         ),
         body: SingleChildScrollView(
                   child: Column(children: <Widget>[
