@@ -16,15 +16,6 @@ class AboutUs extends StatelessWidget {
 class MyAboutPage extends StatefulWidget {
   MyAboutPage({Key key, this.title}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -54,34 +45,51 @@ class _MyAboutPageState extends State<MyAboutPage> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('BVPIEE SOCIETY'),
+          shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
         ),
-        body: Column(children: <Widget>[
-          Text(
-            'About Us',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            'BVIEE is a society of BVCOE affiliated to IEEE.When you join IEEE, you join a community of over 425,000 technology and engineering professionals united by a common desire to continuously learn, interact, collaborate, and innovate. IEEE Membership provides you with the resources and opportunities you need to keep on top of changes in technology; get involved in standards development; network with other professionals in your local area or within a specific technical interest; mentor the next generation of engineers and technologists, and so much more. ',
-          ), 
-          Row(children: <Widget>[
-            new Icon(Icons.email),
-            Text('sb.bvpieee@gmail.com'),
-          ]),
-          Flexible(
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: GoogleMap(
-                onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(
-                  target: _marker.position,
-                  zoom: 16.0,
+        body: SingleChildScrollView(
+                  child: Column(children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(20),
+                child: Text(
+                  'About Us',
+                  style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),
                 ),
-                markers: [_marker].toSet(),
               ),
-            ),
-          ),
-        ]),
-      ),
-    );
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Text(
+                  'BVIEE is a society of BVCOE affiliated to IEEE.When you join IEEE, you join a community of over 425,000 technology and engineering professionals united by a common desire to continuously learn, interact, collaborate, and innovate. IEEE Membership provides you with the resources and opportunities you need to keep on top of changes in technology; get involved in standards development; network with other professionals in your local area or within a specific technical interest; mentor the next generation of engineers and technologists, and so much more. ',
+                  textAlign: TextAlign.justify,style: TextStyle(
+                    fontSize: 15
+                  ),
+                ),
+              ), 
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Row(children: <Widget>[
+                  new Icon(Icons.email,size: 30,color: Colors.blue,),
+                  Text('sb.bvp.com',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                ]),
+              ),
+              Container(
+                  height: 400,
+                  padding: EdgeInsets.all(16.0),
+                  child: GoogleMap(
+                    onMapCreated: _onMapCreated,
+                    initialCameraPosition: CameraPosition(
+                      target: _marker.position,
+                      zoom: 16.0,
+                    ),
+                    markers: [_marker].toSet(),
+                  ),
+                ),
+              
+            ]),
+        ),
+        ),
+      );
+    
   }
 }
