@@ -2,6 +2,8 @@ import 'package:bvp_ieee/Society_View.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/AboutUs.dart';
+import 'package:bvp_ieee/Class_Event.dart';
+import 'package:bvp_ieee/EventPage.dart';
 
 BuildContext con;
 class DRAWER extends StatefulWidget{
@@ -185,6 +187,21 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.account_circle, color: Colors.black),
                   title: Text("My Account"),
+                  onTap: (){Navigator.push(context, 
+                    MaterialPageRoute(builder: (context) => EventPage(
+                          event: OurEvent(
+                            "101",
+                            "images/bvp1.jpg",
+                            "this is intro",
+                            "24/02/2020",
+                            "Library",
+                            "Details about event will be shown here",
+                            null
+                            ),
+                      )
+                                     )
+                                          )
+                    ;},
                 )
               ],
             ),
