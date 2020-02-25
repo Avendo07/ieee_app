@@ -23,17 +23,7 @@ class App_BarState extends State {
           padding: const EdgeInsets.only(right: 16.0),
           child: IconButton(
             icon: Icon(Icons.notifications),
-            onPressed: () {Navigator.push(context, MaterialPageRoute(
-              builder: (context) => 
-              WorkshopPage(
-                workshop: Workshop(
-                  '101','images/bvp1.jpg',
-                   'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering',
-                   '24/02/2020','Library','details will be displayed here',null,null,
-                <Mentor>[Mentor('Adit','images/wall.jpg'),Mentor('Aditi','images/women.jpg')]
-                ),
-              )
-              ));},
+            onPressed: () {},
           ),
         )
       ],

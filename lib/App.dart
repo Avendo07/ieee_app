@@ -4,8 +4,10 @@ import 'package:bvp_ieee/Drawer.dart';
 import 'package:bvp_ieee/Societydetail.dart';
 import 'package:bvp_ieee/society_listview.dart';
 import 'package:flutter/material.dart';
+import 'package:bvp_ieee/WorkshopPage.dart';
 
 import './appBar.dart';
+import 'EventPage.dart';
 
 class App extends StatefulWidget {
   @override
@@ -50,7 +52,53 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
                 ],
               ),
             ),
-            Center(child: Text("Upcoming events appear here")),
+            Center(child: 
+            ListView.builder(
+          
+          itemCount: 1,
+          itemBuilder: (BuildContext context,int index)
+          {
+               return InkWell(
+                     onTap: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)
+                       {
+                         return EventPage(event: workshops[0]);
+                       }));
+                     }, 
+
+                      child: Container(
+            height: 150,
+            margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
+            
+
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CircleAvatar(
+                  child: Image.asset('${entries[index].photoslink}',
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 200,),
+                  backgroundColor: Colors.amber,
+                  radius: 80,
+                  foregroundColor: Colors.red,
+                ), Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                )
+                ,
+                Flexible(child: Text(
+                  '${entries[index].intro}', textAlign: TextAlign.start,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 15,
+                      color: Colors.black87),),)
+              ],
+            ),
+
+          ),
+               );
+          })
+            ),
             society_listview(),
           ],
         ),
@@ -116,72 +164,87 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
       }
 
       if (index % 2 == 0) {
-        return Container(
-          height: 150,
-          margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
-
-
-          child: Row(
-
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              CircleAvatar(
-                child: Image.asset('${entries[index].photoslink}',
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 200,),
-                backgroundColor: Colors.amber,
-                radius: 80,
-                foregroundColor: Colors.red,
-
-              ), Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
+        return InkWell(
+            onTap: (){Navigator.push(context, MaterialPageRoute(
+              builder: (context) => 
+              WorkshopPage(
+                workshop: workshops[index],
               )
-              ,
-              Flexible(child: Text(
-                '${entries[index].intro}', textAlign: TextAlign.start,
-                overflow: TextOverflow.fade,
-                style: TextStyle(fontSize: 15,
-                    color: Colors.black87),),)
-            ],
-          ),
+              ));},
+            child: Container(
+            height: 150,
+            margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
+            
 
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CircleAvatar(
+                  child: Image.asset('${entries[index].photoslink}',
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 200,),
+                  backgroundColor: Colors.amber,
+                  radius: 80,
+                  foregroundColor: Colors.red,
+                ), Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                )
+                ,
+                Flexible(child: Text(
+                  '${entries[index].intro}', textAlign: TextAlign.start,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 15,
+                      color: Colors.black87),),)
+              ],
+            ),
+
+          ),
         );
       }
       else {
-        return Container(
-          height: 150,
-          margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
-
-
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-
-              Flexible(child: Text(
-                '${entries[index].intro}', textAlign: TextAlign.start,
-                overflow: TextOverflow.fade,
-                style: TextStyle(fontSize: 15,
-                    color: Colors.black87),),),
-              Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
+        return InkWell(
+            onTap: (){Navigator.push(context, MaterialPageRoute(
+              builder: (context) => 
+              WorkshopPage(
+                workshop: workshops[index],
               )
-              ,
-              CircleAvatar(
-                child: Image.asset('${entries[index].photoslink}',
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 200,),
-                backgroundColor: Colors.amber,
-                radius: 80,
-                foregroundColor: Colors.red,
-
-              ),
+              ));},
+                  child: Container(
+            height: 150,
+            margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
 
 
-            ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+
+                Flexible(child: Text(
+                  '${entries[index].intro}', textAlign: TextAlign.start,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 15,
+                      color: Colors.black87),),),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                )
+                ,
+                CircleAvatar(
+                  child: Image.asset('${entries[index].photoslink}',
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 200,),
+                  backgroundColor: Colors.amber,
+                  radius: 80,
+                  foregroundColor: Colors.red,
+
+                ),
+
+
+              ],
+            ),
+
           ),
-
         );
       }
     }}

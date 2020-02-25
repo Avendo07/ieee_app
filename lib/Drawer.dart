@@ -187,21 +187,6 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.account_circle, color: Colors.black),
                   title: Text("My Account"),
-                  onTap: (){Navigator.push(context, 
-                    MaterialPageRoute(builder: (context) => EventPage(
-                          event: OurEvent(
-                            "101",
-                            "images/bvp1.jpg",
-                            "this is intro",
-                            "24/02/2020",
-                            "Library",
-                            "Details about event will be shown here",
-                            null
-                            ),
-                      )
-                                     )
-                                          )
-                    ;},
                 )
               ],
             ),
