@@ -4,8 +4,10 @@ import 'package:bvp_ieee/Drawer.dart';
 import 'package:bvp_ieee/Societydetail.dart';
 import 'package:bvp_ieee/society_listview.dart';
 import 'package:flutter/material.dart';
+import 'package:bvp_ieee/WorkshopPage.dart';
 
 import './appBar.dart';
+import 'EventPage.dart';
 
 class App extends StatefulWidget {
   @override
@@ -13,8 +15,13 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-List<Workshop>  entries = [Workshop('images/bvp.jpg', 'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),Workshop('images/bvp1.jpg', 'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields '),Workshop('images/bvp2.jpg','BVPIEEE Computer Society (sometimes abbreviated Computer Society or CS) is a professional society of IEEE. Its purpose and scope is “to advance the theory, practice, and application of computer and information processing science and technology” and the “professional standing of its members.')];
-List<Workshop>  workshops=[Workshop('images/bvp.jpg',null),Workshop('images/bvp2.jpg',null)];
+List<Workshop>  entries = [
+  Workshop('101','images/bvp.jpg', 'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering','24/02/2020','Library',null,null,null,null),
+  Workshop('102','images/bvp1.jpg', 'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields ','24/02/2020','Library','The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields ',
+  null,null,[Mentor('Adit','images/wall.jpg'),Mentor('Adit','images/women.jpg.jpg')]),
+  Workshop('103','images/bvp2.jpg','BVPIEEE Computer Society (sometimes abbreviated Computer Society or CS) is a professional society of IEEE. Its purpose and scope is “to advance the theory, practice, and application of computer and information processing science and technology” and the “professional standing of its members.','24/02/2020','Library',null,null,null,null)
+  ];
+List<Workshop>  workshops=[Workshop(null,'images/bvp.jpg',null,null,null,null,null,null,null),Workshop(null,'images/bvp2.jpg',null,null,null,null,null,null,null)];
 
 static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a society of BVCOE affiliated to IEEE.When you join IEEE, you join a community of over 425,000 technology and engineering professionals united by a common desire to continuously learn, interact, collaborate, and innovate. IEEE Membership provides you with the resources and opportunities you need to keep on top of changes in technology; get involved in standards development; network with other professionals in your local area or within a specific technical interest; mentor the next generation of engineers and technologists, and so much more. ','images/bvp1.jpg',['Ashish'],['ashisharora111122@gmail.com'])];
   @override
@@ -36,9 +43,6 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
 
                 children: <Widget>[
                   latestnews(),
-                   Card(child: news(entries.length-1)),
-                   Card(child: news(entries.length-2)),
-                   Card(child: news(entries.length-3)),
                   workshopes(),
                   Card(child: workshopsliding()),
                   //AboutUs(),
@@ -46,7 +50,53 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
                 ],
               ),
             ),
-            Center(child: Text("Upcoming events appear here")),
+            Center(child: 
+            ListView.builder(
+          
+          itemCount: 1,
+          itemBuilder: (BuildContext context,int index)
+          {
+               return InkWell(
+                     onTap: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)
+                       {
+                         return EventPage(event: entries[1]);
+                       }));
+                     }, 
+
+                      child: Container(
+            height: 150,
+            margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
+            
+
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CircleAvatar(
+                  child: Image.asset('${entries[1].photoslink}',
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 200,),
+                  backgroundColor: Colors.amber,
+                  radius: 80,
+                  foregroundColor: Colors.red,
+                ), Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                )
+                ,
+                Flexible(child: Text(
+                  '${entries[1].intro}', textAlign: TextAlign.start,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 15,
+                      color: Colors.black87),),)
+              ],
+            ),
+
+          ),
+               );
+          })
+            ),
             society_listview(),
           ],
         ),
@@ -56,7 +106,8 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
 
 
   Widget latestnews() {
-    return Container(
+    List<Widget> holder=[];
+    holder.add(Container(
       margin: EdgeInsets.only(left: 20, top: 30, right: 200),
       child: Text("Latest News",
           style: TextStyle(
@@ -66,7 +117,10 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic,
           )),
-    );
+    ));
+    for(int i=0;i<entries.length;i++)
+      holder.add(Card(child: news(i)));
+    return Column(children: holder);
   }
 
   Widget workshopes() {
@@ -90,16 +144,24 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
           itemCount: workshops.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context,int index){
-          return  Row(
-            children: <Widget>[
-              CircleAvatar(
-            child: Image.asset('${workshops[index].photoslink}'),
-            radius: 100,
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 10,right: 10),
-          )
-            ],
+          return  InkWell(
+            onTap:  (){Navigator.push(context, MaterialPageRoute(
+              builder: (context) => 
+              WorkshopPage(
+                workshop: workshops[index],
+              )
+              ));},
+                      child: Row(
+              children: <Widget>[
+                CircleAvatar(
+              child: Image.asset('${workshops[index].photoslink}'),
+              radius: 100,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 10,right: 10),
+            )
+              ],
+            ),
           );
         }),
       );
@@ -112,72 +174,87 @@ static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a 
       }
 
       if (index % 2 == 0) {
-        return Container(
-          height: 150,
-          margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
-
-
-          child: Row(
-
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              CircleAvatar(
-                child: Image.asset('${entries[index].photoslink}',
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 200,),
-                backgroundColor: Colors.amber,
-                radius: 80,
-                foregroundColor: Colors.red,
-
-              ), Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
+        return InkWell(
+            onTap: (){Navigator.push(context, MaterialPageRoute(
+              builder: (context) => 
+              WorkshopPage(
+                workshop: entries[index],
               )
-              ,
-              Flexible(child: Text(
-                '${entries[index].details}', textAlign: TextAlign.start,
-                overflow: TextOverflow.fade,
-                style: TextStyle(fontSize: 15,
-                    color: Colors.black87),),)
-            ],
-          ),
+              ));},
+            child: Container(
+            height: 150,
+            margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
+            
 
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CircleAvatar(
+                  child: Image.asset('${entries[index].photoslink}',
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 200,),
+                  backgroundColor: Colors.amber,
+                  radius: 80,
+                  foregroundColor: Colors.red,
+                ), Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                )
+                ,
+                Flexible(child: Text(
+                  '${entries[index].intro}', textAlign: TextAlign.start,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 15,
+                      color: Colors.black87),),)
+              ],
+            ),
+
+          ),
         );
       }
       else {
-        return Container(
-          height: 150,
-          margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
-
-
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-
-              Flexible(child: Text(
-                '${entries[index].details}', textAlign: TextAlign.start,
-                overflow: TextOverflow.fade,
-                style: TextStyle(fontSize: 15,
-                    color: Colors.black87),),),
-              Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
+        return InkWell(
+            onTap: (){Navigator.push(context, MaterialPageRoute(
+              builder: (context) => 
+              WorkshopPage(
+                workshop: entries[index],
               )
-              ,
-              CircleAvatar(
-                child: Image.asset('${entries[index].photoslink}',
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 200,),
-                backgroundColor: Colors.amber,
-                radius: 80,
-                foregroundColor: Colors.red,
-
-              ),
+              ));},
+                  child: Container(
+            height: 150,
+            margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
 
 
-            ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+
+                Flexible(child: Text(
+                  '${entries[index].intro}', textAlign: TextAlign.start,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 15,
+                      color: Colors.black87),),),
+                Container(
+                  margin: EdgeInsets.only(left: 10, right: 10),
+                )
+                ,
+                CircleAvatar(
+                  child: Image.asset('${entries[index].photoslink}',
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 200,),
+                  backgroundColor: Colors.amber,
+                  radius: 80,
+                  foregroundColor: Colors.red,
+
+                ),
+
+
+              ],
+            ),
+
           ),
-
         );
       }
     }}

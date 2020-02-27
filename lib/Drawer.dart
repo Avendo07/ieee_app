@@ -2,6 +2,8 @@ import 'package:bvp_ieee/Society_View.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/AboutUs.dart';
+import 'package:bvp_ieee/Class_Event.dart';
+import 'package:bvp_ieee/EventPage.dart';
 
 BuildContext con;
 class DRAWER extends StatefulWidget{
