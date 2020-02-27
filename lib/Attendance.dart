@@ -1,6 +1,7 @@
 import 'package:bvp_ieee/App.dart';
 import 'package:bvp_ieee/Class_Workshop.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 class Attendance extends StatefulWidget {
   @override
   _AttendanceState createState() => _AttendanceState();
@@ -46,7 +47,17 @@ class _AttendanceState extends State<Attendance> {
                      Container(
                        margin: EdgeInsets.all(40),
                        child: TextFormField(
-                         
+                        keyboardType: TextInputType.number,
+                        toolbarOptions: ToolbarOptions(
+                          copy: true,
+                          paste: true,
+                          selectAll: true,
+                          cut: true,
+                        ),
+                        cursorColor: Theme.of(context).primaryColor,
+                        cursorRadius: Radius.circular(50),
+                        cursorWidth: 5,
+                        
                        ),
                      ),
                      Container(
