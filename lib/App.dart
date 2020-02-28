@@ -5,8 +5,8 @@ import 'package:bvp_ieee/Drawer.dart';
 import 'package:bvp_ieee/Societydetail.dart';
 import 'package:bvp_ieee/society_listview.dart';
 import 'package:flutter/material.dart';
-
 import './appBar.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class App extends StatefulWidget {
   @override
@@ -18,9 +18,47 @@ class AppState extends State<App> {
 List<Workshop>  entries = [Workshop('Arduino','images/bvp.jpg', 'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),Workshop('Arduino','images/bvp1.jpg', 'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields '),Workshop('Arduino','images/bvp2.jpg','BVPIEEE Computer Society (sometimes abbreviated Computer Society or CS) is a professional society of IEEE. Its purpose and scope is “to advance the theory, practice, and application of computer and information processing science and technology” and the “professional standing of its members.')];
 List<Workshop>  workshops=[Workshop('Arduino','images/bvp.jpg',null),Workshop('RAS','images/bvp2.jpg',null)];
 static List<Workshop> workshop =[];
-static List<Societydetail> societydetail=[Societydetail('Robotics', 'BVIEE is a society of BVCOE affiliated to IEEE.When you join IEEE, you join a community of over 425,000 technology and engineering professionals united by a common desire to continuously learn, interact, collaborate, and innovate. IEEE Membership provides you with the resources and opportunities you need to keep on top of changes in technology; get involved in standards development; network with other professionals in your local area or within a specific technical interest; mentor the next generation of engineers and technologists, and so much more. ','images/bvp1.jpg',['Ashish'],['ashisharora111122@gmail.com'])];
+static List<Societydetail> societydetail=[];
+DatabaseReference mref=FirebaseDatabase.instance.reference();
+
+  void firebaseRetrive()
+  {
+    
+     mref.child('bvpieee').once().then((DataSnapshot snap){
+       Map<dynamic,dynamic> maps=snap.value;
+       Map<dynamic,dynamic> chaptermaps=maps["Chapter"];
+       for(int i=1;i<=chaptermaps.length;i++)
+       {
+           Map<dynamic,dynamic> chapters=chaptermaps['Chapter$i'];
+           String societyname=chapters['society_name'];
+           String societydescription=chapters['society_description'];
+           String societyimage=chapters['society_image']; 
+           
+           Map<dynamic,dynamic> mentors=chapters['mentor'];
+           List<String> mentorname=[];
+           for(int j=1;j<=mentors.length;j++)
+           {
+             mentorname.add(mentors['mentor$j'].toString());
+           }
+
+           Map<dynamic,dynamic> phone=chapters['mentor_phoneno'];
+           List<String> phoneno=[];
+           for(int j=1;j<=phone.length;j++)
+           {
+             phoneno.add(phone['phone$j'].toString());
+           }
+          // print('$societyname \n $societydescription \n $societyimage \n${mentorname[0]} \n${mentorname[1]} \n${phoneno[0]} \n${phoneno[1]}');
+            societydetail.add(Societydetail(societyname, societydescription, societyimage, mentorname, phoneno));
+
+       }
+     });
+     
+  } 
+ 
   @override
   Widget build(context) {
+
+    firebaseRetrive();
     return Scaffold(
       drawer: new DRAWER(context),
 

@@ -134,7 +134,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.computer, color: Colors.black),
                   title: Text("Computer Society"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(1);},
                 ),
               ],
             ),
@@ -146,7 +146,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.hourglass_empty, color: Colors.black),
                   title: Text("Industry & Automation"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(2);},
                 )
               ],
             ),
@@ -158,7 +158,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.add_to_queue, color: Colors.black),
                   title: Text("HKN Lambda ETA"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(3);},
                 )
               ],
             ),
@@ -170,7 +170,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.pregnant_woman, color: Colors.black),
                   title: Text("Women In Engineering"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(4);},
                 )
               ],
             ),

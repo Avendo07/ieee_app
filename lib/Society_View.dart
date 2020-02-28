@@ -19,9 +19,12 @@ class SocietyViewState extends State
   @override
   Widget build(BuildContext context)
    {
-      mDatabase.child("users").set({
-        'id' : 'Hello World'
-      });  
+      String mentordetail="";
+      for(int i=0;i<AppState.societydetail[index].mentor_name.length;i++)
+      {
+        String ans=AppState.societydetail[index].mentor_name[i] + "   " + AppState.societydetail[index].mentor_phoneno[i];
+        mentordetail+=ans+"\n";
+      }
     //Societydetail societydetail=Societydetail('ROBOTICS','BVIEE is a society of BVCOE affiliated to IEEE.When you join IEEE, you join a community of over 425,000 technology and engineering professionals united by a common desire to continuously learn, interact, collaborate, and innovate. IEEE Membership provides you with the resources and opportunities you need to keep on top of changes in technology; get involved in standards development; network with other professionals in your local area or within a specific technical interest; mentor the next generation of engineers and technologists, and so much more. ',null,['Ashish'],['ashisharora111122@gmail.com']);
     
      return Scaffold(
@@ -48,7 +51,7 @@ class SocietyViewState extends State
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text("${AppState.societydetail[index].mentor_name[0] } \n ${AppState.societydetail[index].mentor_phoneno[0] }",textAlign: TextAlign.center,style: TextStyle(
+              child: Text("${mentordetail }",textAlign: TextAlign.center,style: TextStyle(
                 fontSize: 15
               ),),
             ),

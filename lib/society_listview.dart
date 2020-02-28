@@ -22,7 +22,7 @@ class society_listviewState extends State<society_listview>
       
           return  ListView.builder(
           
-          itemCount: 1,
+          itemCount: 5,
           itemBuilder: (BuildContext context,int index)
           {
                return GestureDetector(
