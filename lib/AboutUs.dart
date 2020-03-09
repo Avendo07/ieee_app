@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'Head_AppBar.dart';
+
 
 class AboutUs extends StatelessWidget {
   // This widget is the root of your application.
@@ -43,13 +45,10 @@ class _MyAboutPageState extends State<MyAboutPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('BVPIEE SOCIETY'),
-          shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
-          automaticallyImplyLeading: false,
-                 
-        ),
+        appBar:PreferredSize(
+        child: new Head_AppBar("BVPIEEE"),
+        preferredSize: Size.square(60),
+      ),
         body: SingleChildScrollView(
                   child: Column(children: <Widget>[
               Container(
