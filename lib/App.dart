@@ -128,7 +128,7 @@ class AppState extends State<App> {
 
   @override
   Widget build(context) {
-    // firebaseRetrive();
+    firebaseRetrive();
     return Scaffold(
       drawer: new DRAWER(context),
       appBar: PreferredSize(
