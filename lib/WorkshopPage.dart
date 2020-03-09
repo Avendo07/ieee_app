@@ -116,10 +116,10 @@ class Page extends StatelessWidget {
                 new Row(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                  //   new Text(
-                  //  //   "Workshop No.: ${_workshop.eventNumber}",
-                  //     textScaleFactor: 1.2,
-                  //   ),
+                    new Text(
+                     "Workshop No.: ${_workshop.eventNumber}",
+                      textScaleFactor: 1.2,
+                    ),
                   ],
                 ),
               ),
@@ -129,10 +129,10 @@ class Page extends StatelessWidget {
                 new Row(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    // new Text(
-                    //   "Date: ${_workshop.date}",
-                    //   textScaleFactor: 1.2,
-                    // ),
+                    new Text(
+                      "Date: ${_workshop.date}",
+                      textScaleFactor: 1.2,
+                    ),
                   ],
                 ),
               ),
@@ -142,10 +142,10 @@ class Page extends StatelessWidget {
                 new Row(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    // new Text(
-                    //   "Venue: ${_workshop.venue}",
-                    //   textScaleFactor: 1.2,
-                    // ),
+                    new Text(
+                      "Venue: ${_workshop.venue}",
+                      textScaleFactor: 1.2,
+                    ),
                   ],
                 ),
               ),
@@ -157,7 +157,7 @@ class Page extends StatelessWidget {
                 textScaleFactor: 2,
               ),
             ),
-           // mentorsList(),
+           mentorsList(),
             new Container(
               margin: EdgeInsets.fromLTRB(10, 15, 0, 15),
               child: new Text(
@@ -187,60 +187,60 @@ class Page extends StatelessWidget {
     );
   }
 
-  // Widget mentorsList() {
-  //   //List<Mentor> mentors = _workshop.mentors;
-  //   if (mentors == null || mentors.length < 1) return Container();
-  //   var holder = <Widget>[];
-  //   for (int i = 0; i < mentors.length; i++)
-  //     { MainAxisAlignment mainAxisAlignment;
-  //       List<List> margins=[];
-  //     if(i%2==0){
-  //       mainAxisAlignment=MainAxisAlignment.start;
-  //       margins.addAll([[30.0, 2.0, 2.0, 2.0],[30.0, 0.0, 0.0, 0.0],[5.0, 10.0, 5.0, 5.0]]);
-  //     }
-  //     else{
-  //       mainAxisAlignment=MainAxisAlignment.end;
-  //       margins.addAll([[2.0, 2.0, 30.0, 2.0],[0.0, 0.0, 30.0, 0.0],[5.0, 10.0, 5.0, 5.0]]);
-  //     } 
-  //       holder.add(
-  //       new Stack(
-  //         children: <Widget>[
-  //           new Container(
-  //             margin: EdgeInsets.fromLTRB(margins[0][0],margins[0][1], margins[0][2], margins[0][3]),
-  //             child: new Card(
-  //               child: new Container(
-  //                 margin: EdgeInsets.fromLTRB(margins[1][0],margins[1][1], margins[1][2], margins[1][3]),
-  //                 child: new Text(
-  //                   "${mentors[i].name}",
-  //                   textScaleFactor: 1.35,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //           new Row(
-  //             mainAxisSize: MainAxisSize.max,
-  //             mainAxisAlignment: mainAxisAlignment,
-  //             crossAxisAlignment: CrossAxisAlignment.center,
-  //             children: <Widget>[
-  //               new Card(
-  //                 margin: EdgeInsets.fromLTRB(margins[2][0],margins[2][1], margins[2][2], margins[2][3]),
-  //                 shape: CircleBorder(side: BorderSide(width: 0.5)),
-  //                 child: new CircleAvatar(
-  //                   backgroundImage: AssetImage('${mentors[i].photolink}'),
-  //                   maxRadius: 30,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //     }
-  //   return new Card(
-  //     elevation: 5,
-  //     child: new Column(children: holder),
-  //   );
-  // }
+  Widget mentorsList() {
+    List<Mentor> mentors = _workshop.mentors;
+    if (mentors == null || mentors.length < 1) return Container();
+    var holder = <Widget>[];
+    for (int i = 0; i < mentors.length; i++)
+      { MainAxisAlignment mainAxisAlignment;
+        List<List> margins=[];
+      if(i%2==0){
+        mainAxisAlignment=MainAxisAlignment.start;
+        margins.addAll([[30.0, 2.0, 2.0, 2.0],[30.0, 0.0, 0.0, 0.0],[5.0, 10.0, 5.0, 5.0]]);
+      }
+      else{
+        mainAxisAlignment=MainAxisAlignment.end;
+        margins.addAll([[2.0, 2.0, 30.0, 2.0],[0.0, 0.0, 30.0, 0.0],[5.0, 10.0, 5.0, 5.0]]);
+      } 
+        holder.add(
+        new Stack(
+          children: <Widget>[
+            new Container(
+              margin: EdgeInsets.fromLTRB(margins[0][0],margins[0][1], margins[0][2], margins[0][3]),
+              child: new Card(
+                child: new Container(
+                  margin: EdgeInsets.fromLTRB(margins[1][0],margins[1][1], margins[1][2], margins[1][3]),
+                  child: new Text(
+                    "${mentors[i].name}",
+                    textScaleFactor: 1.35,
+                  ),
+                ),
+              ),
+            ),
+            new Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: mainAxisAlignment,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Card(
+                  margin: EdgeInsets.fromLTRB(margins[2][0],margins[2][1], margins[2][2], margins[2][3]),
+                  shape: CircleBorder(side: BorderSide(width: 0.5)),
+                  child: new CircleAvatar(
+                    backgroundImage: AssetImage('${mentors[i].photolink}'),
+                    maxRadius: 30,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+      }
+    return new Card(
+      elevation: 5,
+      child: new Column(children: holder),
+    );
+  }
 }
 
 //musicbrains
