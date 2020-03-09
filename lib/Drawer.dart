@@ -1,6 +1,9 @@
+import 'package:bvp_ieee/Society_View.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/AboutUs.dart';
+import 'package:bvp_ieee/Class_Event.dart';
+import 'package:bvp_ieee/EventPage.dart';
 
 BuildContext con;
 class DRAWER extends StatefulWidget{
@@ -16,6 +19,15 @@ class DRAWER extends StatefulWidget{
 }
 
 class DRAWERState extends State {
+  
+   void navtosociety(int index)
+  {
+     Navigator.push(context, MaterialPageRoute(builder: (context){
+       return SocietyView(index);
+     },
+     ));
+  }
+  
   @override
   Widget build(BuildContext context) {
 
@@ -111,6 +123,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.directions_car, color: Colors.black),
                   title: Text("Robotic & Automation"),
+                  onTap: (){ navtosociety(0);},
                 )
               ],
             ),
@@ -122,6 +135,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.computer, color: Colors.black),
                   title: Text("Computer Society"),
+                  onTap: (){ navtosociety(0);},
                 ),
               ],
             ),
@@ -133,6 +147,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.hourglass_empty, color: Colors.black),
                   title: Text("Industry & Automation"),
+                  onTap: (){ navtosociety(0);},
                 )
               ],
             ),
@@ -144,6 +159,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.add_to_queue, color: Colors.black),
                   title: Text("HKN Lambda ETA"),
+                  onTap: (){ navtosociety(0);},
                 )
               ],
             ),
@@ -155,6 +171,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.pregnant_woman, color: Colors.black),
                   title: Text("Women In Engineering"),
+                  onTap: (){ navtosociety(0);},
                 )
               ],
             ),

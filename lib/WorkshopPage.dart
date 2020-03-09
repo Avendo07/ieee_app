@@ -3,7 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/Drawer.dart';
 
+import 'package:bvp_ieee/Class_Workshop.dart';
+
+Workshop _workshop;
+
 class WorkshopPage extends StatefulWidget {
+  WorkshopPage({Key key, Workshop workshop}) : super(key: key) {
+    _workshop = workshop;
+  }
   @override
   State<StatefulWidget> createState() {
     return WorkshopPageState();
@@ -50,9 +57,11 @@ class Page extends StatelessWidget {
                       children: <Widget>[
                         //Chapter presents
 
-                        Image(
-                          image: AssetImage('images/bvp1.jpg'),
-                          fit: BoxFit.cover,
+                        Flexible(
+                          child: Image(
+                            image: AssetImage('${_workshop.photoslink}'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
 
                         new Stack(
@@ -108,7 +117,7 @@ class Page extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Text(
-                      "Workshop No.: ",
+                      "Workshop No.: ${_workshop.eventNumber}",
                       textScaleFactor: 1.2,
                     ),
                   ],
@@ -121,7 +130,7 @@ class Page extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Text(
-                      "Date: ",
+                      "Date: ${_workshop.date}",
                       textScaleFactor: 1.2,
                     ),
                   ],
@@ -134,7 +143,7 @@ class Page extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Text(
-                      "Venue: ",
+                      "Venue: ${_workshop.venue}",
                       textScaleFactor: 1.2,
                     ),
                   ],
@@ -148,75 +157,7 @@ class Page extends StatelessWidget {
                 textScaleFactor: 2,
               ),
             ),
-            new Card(
-              elevation: 5,
-              child: new Column(
-                children: <Widget>[
-                  new Stack(
-                    children: <Widget>[
-                      new Container(
-                        margin: EdgeInsets.fromLTRB(2, 2, 30, 2),
-                        child: new Card(
-                          child: new Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 30, 0),
-                            child: new Text(
-                              "Joasllkafjkfjmflmlkfdslmflsmlfdsmklmfdsmlfkmkmwewterdf",
-                              textScaleFactor: 1.35,
-                            ),
-                          ),
-                        ),
-                      ),
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          new Card(
-                            margin: EdgeInsets.fromLTRB(5, 10, 5, 5),
-                            shape: CircleBorder(side: BorderSide(width: 0.5)),
-                            child: new CircleAvatar(
-                              backgroundImage: AssetImage('images/women.jpg'),
-                              maxRadius: 30,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  new Stack(
-                    children: <Widget>[
-                      new Container(
-                        margin: EdgeInsets.fromLTRB(30, 2, 2, 2),
-                        child: new Card(
-                          child: new Container(
-                            margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
-                            child: new Text(
-                              "Joasllkafjkfjmflmlkfdslmflsmlfdsmklmfdsmlfkmkmwewterdf",
-                              textScaleFactor: 1.35,
-                            ),
-                          ),
-                        ),
-                      ),
-                      new Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          new Card(
-                            margin: EdgeInsets.fromLTRB(5, 10, 5, 5),
-                            shape: CircleBorder(side: BorderSide(width: 0.5)),
-                            child: new CircleAvatar(
-                              backgroundImage: AssetImage('images/bvp1.jpg'),
-                              maxRadius: 30,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            mentorsList(),
             new Container(
               margin: EdgeInsets.fromLTRB(10, 15, 0, 15),
               child: new Text(
@@ -231,12 +172,73 @@ class Page extends StatelessWidget {
                 textScaleFactor: 2,
               ),
             ),
+            new Container(
+              margin: EdgeInsets.fromLTRB(10, 15, 0, 15),
+              child: new Text(
+                "${_workshop.details}",
+              ),
+            ),
           ],
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
         ),
       ),
+    );
+  }
+
+  Widget mentorsList() {
+    List<Mentor> mentors = _workshop.mentors;
+    if (mentors == null || mentors.length < 1) return Container();
+    var holder = <Widget>[];
+    for (int i = 0; i < mentors.length; i++)
+      { MainAxisAlignment mainAxisAlignment;
+        List<List> margins=[];
+      if(i%2==0){
+        mainAxisAlignment=MainAxisAlignment.start;
+        margins.addAll([[30.0, 2.0, 2.0, 2.0],[30.0, 0.0, 0.0, 0.0],[5.0, 10.0, 5.0, 5.0]]);
+      }
+      else{
+        mainAxisAlignment=MainAxisAlignment.end;
+        margins.addAll([[2.0, 2.0, 30.0, 2.0],[0.0, 0.0, 30.0, 0.0],[5.0, 10.0, 5.0, 5.0]]);
+      } 
+        holder.add(
+        new Stack(
+          children: <Widget>[
+            new Container(
+              margin: EdgeInsets.fromLTRB(margins[0][0],margins[0][1], margins[0][2], margins[0][3]),
+              child: new Card(
+                child: new Container(
+                  margin: EdgeInsets.fromLTRB(margins[1][0],margins[1][1], margins[1][2], margins[1][3]),
+                  child: new Text(
+                    "${mentors[i].name}",
+                    textScaleFactor: 1.35,
+                  ),
+                ),
+              ),
+            ),
+            new Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: mainAxisAlignment,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                new Card(
+                  margin: EdgeInsets.fromLTRB(margins[2][0],margins[2][1], margins[2][2], margins[2][3]),
+                  shape: CircleBorder(side: BorderSide(width: 0.5)),
+                  child: new CircleAvatar(
+                    backgroundImage: AssetImage('${mentors[i].photolink}'),
+                    maxRadius: 30,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+      }
+    return new Card(
+      elevation: 5,
+      child: new Column(children: holder),
     );
   }
 }
