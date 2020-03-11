@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'Head_AppBar.dart';
 
 
@@ -70,7 +69,7 @@ class _MyAboutPageState extends State<MyAboutPage> {
               Container(
                 margin: EdgeInsets.all(10),
                 child: Row(children: <Widget>[
-                  new Icon(Icons.email,size: 30,color: Colors.blue,),
+                  new Icon(Icons.email,size: 30,color: Theme.of(context).primaryColor,),
                   Text('sb.bvp.com',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                 ]),
               ),

@@ -5,7 +5,7 @@ class Workshop extends OurEvent
   String chapter;
   List<Mentor> mentors;
 
-  Workshop(String eventNumber,String photoslink,String intro,String date,String venue,String details,String formLink,this.chapter,this.mentors)
+  Workshop(int eventNumber,String photoslink,String intro,String date,String venue,String details,String formLink,this.chapter,this.mentors)
   :super(eventNumber,photoslink,intro,date,venue,details,formLink);
 }
 

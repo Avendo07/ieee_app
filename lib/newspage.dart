@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'Head_AppBar.dart';
 class newsnews extends StatefulWidget {
   @override
