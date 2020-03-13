@@ -59,7 +59,8 @@ class Page extends StatelessWidget {
 
                         Image(
                           image: AssetImage(_event.photoslink),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
+                          width: 190,
                         ),
 
                         new Stack(

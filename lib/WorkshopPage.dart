@@ -59,7 +59,7 @@ class Page extends StatelessWidget {
 
                         Flexible(
                           child: Image(
-                            image: AssetImage('${_workshop.photoslink}'),
+                            image: NetworkImage('${_workshop.photoslink}'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -117,7 +117,7 @@ class Page extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Text(
-                      "Workshop No.: ${_workshop.eventNumber}",
+                     "Workshop No.: ${_workshop.eventNumber}",
                       textScaleFactor: 1.2,
                     ),
                   ],
@@ -157,7 +157,7 @@ class Page extends StatelessWidget {
                 textScaleFactor: 2,
               ),
             ),
-            mentorsList(),
+           mentorsList(),
             new Container(
               margin: EdgeInsets.fromLTRB(10, 15, 0, 15),
               child: new Text(
@@ -226,7 +226,7 @@ class Page extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(margins[2][0],margins[2][1], margins[2][2], margins[2][3]),
                   shape: CircleBorder(side: BorderSide(width: 0.5)),
                   child: new CircleAvatar(
-                    backgroundImage: AssetImage('${mentors[i].photolink}'),
+                    backgroundImage: NetworkImage('${mentors[i].photolink}'),
                     maxRadius: 30,
                   ),
                 ),

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bvp_ieee/Class_Workshop.dart';
-import 'package:bvp_ieee/WorkshopPage.dart';
 
 class App_Bar extends StatefulWidget{
   BuildContext con;
@@ -27,7 +25,7 @@ class App_BarState extends State {
           ),
         )
       ],
-      title: Text("BVPIEEE"),
+       title: Text("BVPIEEE"),
       backgroundColor: Theme.of(context).primaryColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
