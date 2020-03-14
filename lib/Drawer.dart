@@ -2,8 +2,7 @@ import 'package:bvp_ieee/Society_View.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/AboutUs.dart';
-import 'package:bvp_ieee/Class_Event.dart';
-import 'package:bvp_ieee/EventPage.dart';
+import 'package:bvp_ieee/Attendance.dart';
 
 BuildContext con;
 class DRAWER extends StatefulWidget{
@@ -32,6 +31,7 @@ class DRAWERState extends State {
   Widget build(BuildContext context) {
 
     return Drawer(
+      
       child: ListView(
         children: <Widget>[
           Container(
@@ -135,7 +135,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.computer, color: Colors.black),
                   title: Text("Computer Society"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(1);},
                 ),
               ],
             ),
@@ -147,7 +147,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.hourglass_empty, color: Colors.black),
                   title: Text("Industry & Automation"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(2);},
                 )
               ],
             ),
@@ -159,7 +159,7 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.add_to_queue, color: Colors.black),
                   title: Text("HKN Lambda ETA"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(3);},
                 )
               ],
             ),
@@ -171,11 +171,26 @@ class DRAWERState extends State {
                 ListTile(
                   leading: Icon(Icons.pregnant_woman, color: Colors.black),
                   title: Text("Women In Engineering"),
-                  onTap: (){ navtosociety(0);},
+                  onTap: (){ navtosociety(4);},
                 )
               ],
             ),
           ),
+                   Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.exit_to_app, color: Colors.black),
+                  title: Text("Attendance"),
+                  onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)
+                   {   return Attendance();}
+                  ));}
+                ),
+              ],
+            ),
+          ),
+          
           Padding(
             padding: EdgeInsets.only(top: 12.0, left: 12.0),
             child: Text("ACCOUNT"),

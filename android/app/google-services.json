@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "554130152946",
+    "firebase_url": "https://bvpieee-e6bb7.firebaseio.com",
+    "project_id": "bvpieee-e6bb7",
+    "storage_bucket": "bvpieee-e6bb7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554130152946:android:0b60deb369ca6366605f6b",
+        "android_client_info": {
+          "package_name": "com.example.bvp_ieee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554130152946-arqm9ru5uol8a40l4be3ba8mv226n6lj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB158yB0RUypmwi2h25qBAjRY9BNfEkOdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554130152946-arqm9ru5uol8a40l4be3ba8mv226n6lj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
