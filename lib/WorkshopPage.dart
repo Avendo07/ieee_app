@@ -117,7 +117,7 @@ class Page extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     new Text(
-                      "Workshop No.: ${_workshop.eventNumber}",
+                     "Workshop No.: ${_workshop.eventNumber}",
                       textScaleFactor: 1.2,
                     ),
                   ],
@@ -157,7 +157,7 @@ class Page extends StatelessWidget {
                 textScaleFactor: 2,
               ),
             ),
-            mentorsList(),
+           mentorsList(),
             new Container(
               margin: EdgeInsets.fromLTRB(10, 15, 0, 15),
               child: new Text(

@@ -3,11 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/Drawer.dart';
 import 'package:bvp_ieee/Class_Event.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 OurEvent _event;
+
 class EventPage extends StatefulWidget {
-  EventPage({Key key,OurEvent event}):super(key: key){
-    _event=event;
-    }
+  EventPage({Key key, OurEvent event}) : super(key: key) {
+    _event = event;
+  }
   @override
   State<StatefulWidget> createState() {
     return EventPageState();
@@ -19,12 +22,9 @@ class EventPageState extends State {
   Widget build(BuildContext context) {
     return Page();
   }
-  
 }
 
 class Page extends StatelessWidget {
-
-
   Padding _padding(Widget wid) {
     return new Padding(
       padding: EdgeInsets.all(5.0),
@@ -58,8 +58,9 @@ class Page extends StatelessWidget {
                         //Chapter presents
 
                         Image(
-                          image: AssetImage(_event.photoslink),
-                          fit: BoxFit.cover,
+                          image: NetworkImage(_event.photoslink),
+                          fit: BoxFit.fill,
+                          width: 190,
                         ),
 
                         new Stack(
@@ -154,12 +155,34 @@ class Page extends StatelessWidget {
                 "Points to Note",
                 textScaleFactor: 2,
               ),
-            ),new Container(
+            ),
+            new Container(
               margin: EdgeInsets.fromLTRB(10, 15, 0, 15),
               child: new Text(
                 "${_event.details}",
               ),
             ),
+            Center(
+              child: RaisedButton(
+                splashColor: Colors.black,
+                onPressed: () async {
+                  const url = 'https://flutter.dev';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: Text("Click to Register "),
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(style: BorderStyle.solid,color: Colors.white),
+
+                ),
+              ),
+            )
           ],
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -168,5 +191,4 @@ class Page extends StatelessWidget {
       ),
     );
   }
-
 }

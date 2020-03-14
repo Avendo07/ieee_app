@@ -55,11 +55,22 @@ class Head_AppState extends State {
             icon: new Icon(CupertinoIcons.bell),
             onPressed: () => Scaffold.of(context).showSnackBar(                 //Open up the notifications of assignments and workshops
                   new SnackBar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+
+                      borderRadius:BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)) 
+                    ) ,
                     content: new Text("Hello"),
                     duration: Duration(milliseconds: 300),
                   ),
                 )),
       ],
+      shape: RoundedRectangleBorder(
+        
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))),
+        automaticallyImplyLeading: false,
+      
+      
       /*bottom: new PreferredSize(
             child: new App_Bar(context),/*crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.ideographic,*/

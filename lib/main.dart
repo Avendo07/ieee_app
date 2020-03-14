@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         child: new App(),
         length: 3,
       ),
-      theme: ThemeData(
+     theme: ThemeData(
           primaryColor: Colors.cyan.shade800,
           accentColor: Colors.purple,
           selectedRowColor: Colors.purple.shade200
