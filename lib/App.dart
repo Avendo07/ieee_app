@@ -1,4 +1,3 @@
-import 'package:bvp_ieee/Class_Workshop.dart';
 import 'package:bvp_ieee/Drawer.dart';
 import 'package:bvp_ieee/Societydetail.dart';
 import 'package:bvp_ieee/class_news.dart';
@@ -9,10 +8,12 @@ import 'package:flutter/material.dart';
 import './appBar.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'Class_Event.dart';
+import 'Class_Workshop.dart';
 import 'EventPage.dart';
 import 'WorkshopPage.dart';
 import 'class_news.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 
 
 class App extends StatefulWidget {
@@ -24,6 +25,7 @@ class AppState extends State<App> {
   // Upcoming Events ////////////////////////////////////////////////////////////////////
 
   static List<Workshop> workshops = [];
+  static List<OurEvent> events = [];
 
   // For Latest News ////////////////////////////////////////////////////////////////////////
 
@@ -37,34 +39,11 @@ class AppState extends State<App> {
   ];
 
 
-        null,
-        null, [
-      Mentor('Adit', 'images/wall.jpg'),
-      Mentor('Adit', 'images/women.jpg.jpg')
-    ]),
-    Workshop(
-        103,
-        'images/bvp2.jpg',
-        'BVPIEEE Computer Society (sometimes abbreviated Computer Society or CS) is a professional society of IEEE. Its purpose and scope is “to advance the theory, practice, and application of computer and information processing science and technology” and the “professional standing of its members.',
-        '24/02/2020',
-        'Library',
-        null,
-        null,
-        null,
-        null)
-  ];
+
   ////////////////////////////////////////////////////////////////////////////////////////
 
   // For Latest News ////////////////////////////////////////////////////////////////////////
 
-  static List<news> latest_news = [
-    news('101', 'images/bvp.jpg',
-        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),
-    news('101', 'images/bvp.jpg',
-        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),
-    news('101', 'images/bvp.jpg',
-        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering')
-  ];
   ////////////////////////////////////////////////////////////////////////////////////////
 
   // for Society purpose //////////////////////////////////////////////////////////////////
@@ -303,7 +282,7 @@ class AppState extends State<App> {
       return InkWell(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => newsnews()));
+              context, MaterialPageRoute(builder: (context) => new newsnews()));
         },
         child: Container(
           height: 150,
