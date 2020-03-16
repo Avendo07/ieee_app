@@ -8,7 +8,6 @@ class OurEvent
   String formLink;
   int eventNumber;
   OurEvent(this.eventNumber,this.photoslink,this.intro,this.date,this.venue,this.details,this.formLink);
-
   OurEvent.nn(Map<dynamic,dynamic> map){
     this.photoslink=map['photoslink'];
     this.details=map['details'];

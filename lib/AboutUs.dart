@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'Head_AppBar.dart';
 
+import 'Head_AppBar.dart';
+
 
 class AboutUs extends StatelessWidget {
   // This widget is the root of your application.

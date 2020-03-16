@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bvp_ieee/Class_Workshop.dart';
-import 'package:bvp_ieee/WorkshopPage.dart';
 
 class App_Bar extends StatefulWidget{
   BuildContext con;

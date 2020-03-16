@@ -2,6 +2,7 @@ import 'package:bvp_ieee/Class_Workshop.dart';
 import 'package:bvp_ieee/Drawer.dart';
 import 'package:bvp_ieee/Societydetail.dart';
 import 'package:bvp_ieee/class_news.dart';
+import 'package:bvp_ieee/latestes_news.dart';
 import 'package:bvp_ieee/newspage.dart';
 import 'package:bvp_ieee/society_listview.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'WorkshopPage.dart';
 import 'class_news.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+
 class App extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => AppState();
@@ -20,28 +22,21 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   // Upcoming Events ////////////////////////////////////////////////////////////////////
-  static List<OurEvent> events = [];
-  ////////////////////////////////////////////////////////////////////////////////////////
 
-  // For Workshops ///////////////////////////////////////////////////////////////////////
-  static List<Workshop> workshops = [
-    Workshop(
-        101,
-        'images/bvp.jpg',
-        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering',
-        '24/02/2020',
-        'Library',
-        'bhhghg',
-        null,
-        null,
-        null),
-    Workshop(
-        102,
-        'images/bvp1.jpg',
-        'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields ',
-        '24/02/2020',
-        'Library',
-        'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields ',
+  static List<Workshop> workshops = [];
+
+  // For Latest News ////////////////////////////////////////////////////////////////////////
+
+  static List<news> latest_news = [
+    news('101', 'images/bvp.jpg',
+        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),
+    news('101', 'images/bvp.jpg',
+        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering'),
+    news('101', 'images/bvp.jpg',
+        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering')
+  ];
+
+
         null,
         null, [
       Mentor('Adit', 'images/wall.jpg'),
@@ -74,6 +69,7 @@ class AppState extends State<App> {
 
   // for Society purpose //////////////////////////////////////////////////////////////////
   static List<Societydetail> societydetail = [];
+
   ////////////////////////////////////////////////////////////////////////////////////////
 
   // for firbase part ///////////////////////////////////////////////////////////////////
@@ -87,21 +83,46 @@ class AppState extends State<App> {
 
   Future<void> firebaseRetrive() async {
     mref.child('bvpieee').once().then((DataSnapshot snap) async {
+
       Map<dynamic, dynamic> maps = snap.value;
 
       // for chapter
       Map<dynamic, dynamic> chaptermaps = maps["Chapter"];
       for (int i = 1; i <= chaptermaps.length; i++) {
-        Map<dynamic, dynamic> chapter = chaptermaps['Chapter$i'];
+        
+        Map<dynamic, dynamic> chapters = chaptermaps['Chapter$i'];
         // print('$societyname \n $societydescription \n $societyimage \n${mentorname[0]} \n${mentorname[1]} \n${phoneno[0]} \n${phoneno[1]}');
-        societydetail.add(Societydetail.nn(chapter));
-      }
-      // for workshop
+        societydetail.add(Societydetail.nn(chapters));
 
-      // for latest news
 
-      // for events
-      Map<dynamic, dynamic> eventmaps = maps["OurEvent"];
+        // for workshop
+        workshops.clear();
+        Map<dynamic, dynamic> workshopMaps = maps["Workshops"];
+        for (int i = 1; i <= workshopMaps.length; i++) {
+          Map<dynamic, dynamic> singleWorkShop = workshopMaps["Workshop$i"];
+          Map<dynamic, dynamic> mentorMap = singleWorkShop["Mentors"];
+          List<Mentor> mentorList = [];
+          for (int k = 1; k <= mentorMap.length; k++) {
+            Map<dynamic, dynamic> singleMentor = mentorMap["Mentor$i"];
+            Mentor m = Mentor(singleMentor["name"], singleMentor["photo"]);
+            mentorList.add(m);
+          }
+          Workshop w = Workshop(
+              singleWorkShop["eventNo"],
+              singleWorkShop["photoLink"],
+              singleWorkShop["intro"],
+              singleWorkShop["date"],
+              singleWorkShop["venue"],
+              singleWorkShop["detail"],
+              singleWorkShop["formLink"],
+              singleWorkShop["chapter"],
+              mentorList);
+          workshops.add(w);
+        }
+        // for latest news
+
+        // for events
+        Map<dynamic, dynamic> eventmaps = maps["OurEvent"];
 
       for (int i = 1; i <= eventmaps.length; i++) {
         Map<dynamic, dynamic> event = eventmaps['Event$i'];
@@ -116,19 +137,17 @@ class AppState extends State<App> {
           events.add(OurEvent.nn(event));
         });
       }
-      ///////////
-      
+        
+        
+      }
     });
-
-
   }
   ////////////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(context) {
-    //firebaseRetrive();
-
-    return Scaffold(  
+    firebaseRetrive();
+    return Scaffold(
       drawer: new DRAWER(context),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(120),
@@ -201,7 +220,9 @@ class AppState extends State<App> {
                           '${events[index].intro}',
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.fade,
+
                           style: TextStyle(fontSize: 15, color: Theme.of(context).primaryColor),
+
                         ),
                       )
                     ],
@@ -258,7 +279,9 @@ class AppState extends State<App> {
               child: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    child: Image.asset('${workshops[index].photoslink}'),
+
+                    child: Image.network('${workshops[index].photoslink}'),
+
                     radius: 100,
                   ),
                   Container(
