@@ -1,5 +1,5 @@
-import 'package:bvp_ieee/Class_Event.dart';
 
+import 'package:bvp_ieee/Class_Event.dart';
 class Workshop extends OurEvent
 {
   String chapter;
@@ -12,7 +12,6 @@ class Workshop extends OurEvent
 class Mentor{
   String name;
   String photolink;
-
   Mentor(this.name,this.photolink);
 
 }
