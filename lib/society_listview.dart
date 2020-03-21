@@ -29,7 +29,7 @@ class society_listviewState extends State<society_listview> {
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage(
+                      image: NetworkImage(
                         '${AppState.societydetail[index].society_image}',
                       ),
                       fit: BoxFit.fill,

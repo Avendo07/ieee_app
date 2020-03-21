@@ -24,40 +24,7 @@ class AppState extends State<App> {
   ////////////////////////////////////////////////////////////////////////////////////////
 
   // For Workshops ///////////////////////////////////////////////////////////////////////
-  static List<Workshop> workshops = [
-    Workshop(
-        101,
-        'images/bvp.jpg',
-        'BVPIEEE: the student branch of IEEE at Bharati Vidyapeeths College of Engineering',
-        '24/02/2020',
-        'Library',
-        'bhhghg',
-        null,
-        null,
-        null),
-    Workshop(
-        102,
-        'images/bvp1.jpg',
-        'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields ',
-        '24/02/2020',
-        'Library',
-        'The Robotics and Automation Society (BVPIEEE RAS) is a professional society that supports the development and the exchange of scientific knowledge in the fields ',
-        null,
-        null, [
-      Mentor('Adit', 'images/wall.jpg'),
-      Mentor('Adit', 'images/women.jpg.jpg')
-    ]),
-    Workshop(
-        103,
-        'images/bvp2.jpg',
-        'BVPIEEE Computer Society (sometimes abbreviated Computer Society or CS) is a professional society of IEEE. Its purpose and scope is “to advance the theory, practice, and application of computer and information processing science and technology” and the “professional standing of its members.',
-        '24/02/2020',
-        'Library',
-        null,
-        null,
-        null,
-        null)
-  ];
+  static List<Workshop> workshops = [];
   ////////////////////////////////////////////////////////////////////////////////////////
 
   // For Latest News ////////////////////////////////////////////////////////////////////////
@@ -93,14 +60,35 @@ class AppState extends State<App> {
       Map<dynamic, dynamic> chaptermaps = maps["Chapter"];
       for (int i = 1; i <= chaptermaps.length; i++) {
         Map<dynamic, dynamic> chapter = chaptermaps['Chapter$i'];
-        // print('$societyname \n $societydescription \n $societyimage \n${mentorname[0]} \n${mentorname[1]} \n${phoneno[0]} \n${phoneno[1]}');
+
+        final mref=await FirebaseStorage.instance.ref().child("Chapter/").child("Chapter$i.jpg").getDownloadURL();
+        setState(() {
+          chapter['society_image']=mref;
+        });
+
         societydetail.add(Societydetail.nn(chapter));
       }
-      // for workshop
 
-      // for latest news
+      ///// for workshop
+      Map<dynamic, dynamic> workshopmaps = maps['Workshops'];
+      for (int i = 1; i <= workshopmaps.length; i++) {
+        Map<dynamic, dynamic> workshop = workshopmaps['Workshop$i'];
 
-      // for events
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('Workshops/')
+            .child('Workshop$i/');
+
+        String url = await ref.child('img.jpg').getDownloadURL();
+        setState(() {
+          workshop['photoslink'] = url;
+          workshops.add(Workshop.fromJson(workshop));
+        });
+      }
+
+      ////// for latest news
+
+      ///// for events
       Map<dynamic, dynamic> eventmaps = maps["OurEvent"];
 
       for (int i = 1; i <= eventmaps.length; i++) {
@@ -110,6 +98,7 @@ class AppState extends State<App> {
             .child('OurEvent/')
             .child('Event$i/')
             .child('img.jpg');
+        
         String url = await ref.getDownloadURL();
         setState(() {
           event['photoslink'] = url;
@@ -117,10 +106,7 @@ class AppState extends State<App> {
         });
       }
       ///////////
-      
     });
-
-
   }
   ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -128,7 +114,7 @@ class AppState extends State<App> {
   Widget build(context) {
     //firebaseRetrive();
 
-    return Scaffold(  
+    return Scaffold(
       drawer: new DRAWER(context),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(120),
@@ -169,7 +155,6 @@ class AppState extends State<App> {
                   }));
                 },
                 child: Card(
-                  
                   margin:
                       EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
                   child: Row(
@@ -185,11 +170,10 @@ class AppState extends State<App> {
                           color: Colors.redAccent,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 10,bottom: 10),
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
                           child: Image.network(
                             '${events[index].photoslink}',
                             fit: BoxFit.fitHeight,
-                            
                           ),
                         ),
                       ),
@@ -201,7 +185,9 @@ class AppState extends State<App> {
                           '${events[index].intro}',
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.fade,
-                          style: TextStyle(fontSize: 15, color: Theme.of(context).primaryColor),
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Theme.of(context).primaryColor),
                         ),
                       )
                     ],
@@ -258,7 +244,7 @@ class AppState extends State<App> {
               child: Row(
                 children: <Widget>[
                   CircleAvatar(
-                    child: Image.asset('${workshops[index].photoslink}'),
+                    child: Image.network('${workshops[index].photoslink}'),
                     radius: 100,
                   ),
                   Container(
