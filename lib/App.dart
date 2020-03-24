@@ -24,8 +24,9 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
   // Upcoming Events ////////////////////////////////////////////////////////////////////
 
+  // For Workshops ///////////////////////////////////////////////////////////////////////
   static List<Workshop> workshops = [];
-  static List<OurEvent> events = [];
+  ////////////////////////////////////////////////////////////////////////////////////////
 
   // For Latest News ////////////////////////////////////////////////////////////////////////
 
@@ -68,40 +69,37 @@ class AppState extends State<App> {
       // for chapter
       Map<dynamic, dynamic> chaptermaps = maps["Chapter"];
       for (int i = 1; i <= chaptermaps.length; i++) {
-        
-        Map<dynamic, dynamic> chapters = chaptermaps['Chapter$i'];
-        // print('$societyname \n $societydescription \n $societyimage \n${mentorname[0]} \n${mentorname[1]} \n${phoneno[0]} \n${phoneno[1]}');
-        societydetail.add(Societydetail.nn(chapters));
+        Map<dynamic, dynamic> chapter = chaptermaps['Chapter$i'];
 
+        final mref=await FirebaseStorage.instance.ref().child("Chapter/").child("Chapter$i.jpg").getDownloadURL();
+        setState(() {
+          chapter['society_image']=mref;
+        });
 
-        // for workshop
-        workshops.clear();
-        Map<dynamic, dynamic> workshopMaps = maps["Workshops"];
-        for (int i = 1; i <= workshopMaps.length; i++) {
-          Map<dynamic, dynamic> singleWorkShop = workshopMaps["Workshop$i"];
-          Map<dynamic, dynamic> mentorMap = singleWorkShop["Mentors"];
-          List<Mentor> mentorList = [];
-          for (int k = 1; k <= mentorMap.length; k++) {
-            Map<dynamic, dynamic> singleMentor = mentorMap["Mentor$i"];
-            Mentor m = Mentor(singleMentor["name"], singleMentor["photo"]);
-            mentorList.add(m);
-          }
-          Workshop w = Workshop(
-              singleWorkShop["eventNo"],
-              singleWorkShop["photoLink"],
-              singleWorkShop["intro"],
-              singleWorkShop["date"],
-              singleWorkShop["venue"],
-              singleWorkShop["detail"],
-              singleWorkShop["formLink"],
-              singleWorkShop["chapter"],
-              mentorList);
-          workshops.add(w);
-        }
-        // for latest news
+        societydetail.add(Societydetail.nn(chapter));
+      }
 
-        // for events
-        Map<dynamic, dynamic> eventmaps = maps["OurEvent"];
+      ///// for workshop
+      Map<dynamic, dynamic> workshopmaps = maps['Workshops'];
+      for (int i = 1; i <= workshopmaps.length; i++) {
+        Map<dynamic, dynamic> workshop = workshopmaps['Workshop$i'];
+
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('Workshops/')
+            .child('Workshop$i/');
+
+        String url = await ref.child('img.jpg').getDownloadURL();
+        setState(() {
+          workshop['photoslink'] = url;
+          workshops.add(Workshop.fromJson(workshop));
+        });
+      }
+
+      ////// for latest news
+
+      ///// for events
+      Map<dynamic, dynamic> eventmaps = maps["OurEvent"];
 
       for (int i = 1; i <= eventmaps.length; i++) {
         Map<dynamic, dynamic> event = eventmaps['Event$i'];
@@ -110,22 +108,23 @@ class AppState extends State<App> {
             .child('OurEvent/')
             .child('Event$i/')
             .child('img.jpg');
+        
         String url = await ref.getDownloadURL();
         setState(() {
           event['photoslink'] = url;
           events.add(OurEvent.nn(event));
         });
       }
-        
-        
-      }
+      ///////////
     });
   }
   ////////////////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(context) {
-    firebaseRetrive();
+
+    //firebaseRetrive();
+
     return Scaffold(
       drawer: new DRAWER(context),
       appBar: PreferredSize(
@@ -144,19 +143,7 @@ class AppState extends State<App> {
                 Card(child: app_news(latest_news.length - 3)),
                 workshopes(),
                 Card(child: workshopsliding()),
-                //AboutUs(),
-              ],
-            ),
-          ),
-          UpcomingEvents(),
-          society_listview(),
-        ],
-      ),
-    );
-  }
-
   Widget UpcomingEvents() {
-    return Center(
         child: ListView.builder(
             itemCount: events.length,
             itemBuilder: (BuildContext context, int index) {
@@ -167,27 +154,17 @@ class AppState extends State<App> {
                   }));
                 },
                 child: Card(
-                  
                   margin:
                       EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
                       Container(
                         width: 140.0,
-                        height: 200.0,
                         margin: EdgeInsets.only(
                             top: 8, bottom: 8, left: 8, right: 8),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                          color: Colors.redAccent,
-                        ),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 10,bottom: 10),
-                          child: Image.network(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
                             '${events[index].photoslink}',
                             fit: BoxFit.fitHeight,
-                            
                           ),
                         ),
                       ),
@@ -199,9 +176,9 @@ class AppState extends State<App> {
                           '${events[index].intro}',
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.fade,
-
-                          style: TextStyle(fontSize: 15, color: Theme.of(context).primaryColor),
-
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Theme.of(context).primaryColor),
                         ),
                       )
                     ],
@@ -246,37 +223,10 @@ class AppState extends State<App> {
           itemCount: workshops.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) {
-            return InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WorkshopPage(
-                              workshop: workshops[index],
-                            )));
-              },
-              child: Row(
-                children: <Widget>[
                   CircleAvatar(
 
                     child: Image.network('${workshops[index].photoslink}'),
-
-                    radius: 100,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                  )
-                ],
-              ),
-            );
-          }),
-    );
-  }
-
-  Widget app_news(int index) {
-    if (index < 0) {
       return null;
-    }
 
     if (index % 2 == 0) {
       return InkWell(
@@ -319,41 +269,3 @@ class AppState extends State<App> {
     } else {
       return InkWell(
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => newsnews()));
-        },
-        child: Container(
-          height: 150,
-          margin: EdgeInsets.only(top: 50, bottom: 50, left: 10, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Flexible(
-                child: Text(
-                  '${latest_news[index].news_Description}',
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.fade,
-                  style: TextStyle(fontSize: 15, color: Colors.black87),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10, right: 10),
-              ),
-              CircleAvatar(
-                child: Image.asset(
-                  '${latest_news[index].news_imagelink}',
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 200,
-                ),
-                backgroundColor: Colors.amber,
-                radius: 80,
-                foregroundColor: Colors.red,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-  }
-}

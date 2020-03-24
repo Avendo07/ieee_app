@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bvp_ieee/Drawer.dart';
 
 import 'package:bvp_ieee/Class_Workshop.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Workshop _workshop;
 
@@ -178,6 +179,27 @@ class Page extends StatelessWidget {
                 "${_workshop.details}",
               ),
             ),
+            Center(
+              child: RaisedButton(
+                splashColor: Colors.black,
+                onPressed: () async {
+                  const url = 'https://flutter.dev';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: Text("Click to Register "),
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(style: BorderStyle.solid,color: Colors.white),
+
+                ),
+              ),
+            )
           ],
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
