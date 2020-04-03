@@ -29,6 +29,9 @@ dependencies:
   firebase_core: ^0.4.4
   firebase_storage: ^3.0.8
   url_launcher: ^5.4.2
+  flutter_sticky_header:
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

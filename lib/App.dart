@@ -12,8 +12,17 @@ import 'EventPage.dart';
 import 'WorkshopPage.dart';
 import 'class_news.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:bvp_ieee/Auth.dart';
 
 class App extends StatefulWidget {
+
+  App({Key key, this.auth, this.userId, this.logoutCallback})
+      : super(key: key);
+
+  final BaseAuth auth;
+  final VoidCallback logoutCallback;
+  final String userId;
+
   @override
   State<StatefulWidget> createState() => AppState();
 }
