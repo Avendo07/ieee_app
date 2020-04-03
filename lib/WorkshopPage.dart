@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/Drawer.dart';
 
-import 'package:bvp_ieee/Class_Workshop.dart';
+import 'package:bvp_ieee/class_workshop.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Workshop _workshop;
 
@@ -59,7 +60,7 @@ class Page extends StatelessWidget {
 
                         Flexible(
                           child: Image(
-                            image: AssetImage('${_workshop.photoslink}'),
+                            image: NetworkImage('${_workshop.photoslink}'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -178,6 +179,27 @@ class Page extends StatelessWidget {
                 "${_workshop.details}",
               ),
             ),
+            Center(
+              child: RaisedButton(
+                splashColor: Colors.black,
+                onPressed: () async {
+                  const url = 'https://flutter.dev';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: Text("Click to Register "),
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  side: BorderSide(style: BorderStyle.solid,color: Colors.white),
+
+                ),
+              ),
+            )
           ],
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -226,7 +248,7 @@ class Page extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(margins[2][0],margins[2][1], margins[2][2], margins[2][3]),
                   shape: CircleBorder(side: BorderSide(width: 0.5)),
                   child: new CircleAvatar(
-                    backgroundImage: AssetImage('${mentors[i].photolink}'),
+                    backgroundImage: NetworkImage('${mentors[i].photolink}'),
                     maxRadius: 30,
                   ),
                 ),

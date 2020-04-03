@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bvp_ieee/Auth.dart';
+import 'package:bvp_ieee/App.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {                                        //TODO: Login button and signup button don't login at the moment
   LoginPage({this.auth, this.loginCallback});
 
   final BaseAuth auth;
@@ -120,6 +121,13 @@ class _LoginPageState extends State<LoginPage> {
 
         if (userId.length > 0 && userId != null && _isLoginForm) {
           widget.loginCallback();
+          /*Navigator.push(context, new MaterialPageRoute(builder: (context){
+            return App(
+              userId: _userId,
+              auth: widget.auth,
+              logoutCallback: logoutCallback,
+            );
+          }));*/
         }
       } catch (e) {
         print('Error: $e');

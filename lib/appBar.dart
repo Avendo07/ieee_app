@@ -1,13 +1,9 @@
-import 'package:bvp_ieee/WorkshopPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bvp_ieee/Class_Workshop.dart';
-import 'package:bvp_ieee/WorkshopPage.dart';
 
 class App_Bar extends StatefulWidget{
   BuildContext con;
   App_Bar(BuildContext con);
-
 
 
   @override
@@ -19,14 +15,13 @@ class App_Bar extends StatefulWidget{
 class App_BarState extends State {
   @override
   Widget build(BuildContext context) {
-    return
-      AppBar(
+    return AppBar(
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
           child: IconButton(
             icon: Icon(Icons.notifications),
-            onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => WorkshopPage()));},
+            onPressed: () {},
           ),
         )
       ],

@@ -4,7 +4,6 @@ import 'package:bvp_ieee/Auth.dart';
 import 'package:bvp_ieee/Root.dart';
 import 'package:bvp_ieee/App.dart';
 import 'package:bvp_ieee/ui/Login.dart';
-import 'package:bvp_ieee/SliverListWorkshop.dart';
 import 'package:bvp_ieee/ui/Workshop_page.dart';
 
 void main() => runApp(MyApp());
@@ -20,9 +19,9 @@ class MyApp extends StatelessWidget {
         child: new App(),
         length: 3,
       ),*/
-      theme: ThemeData(
-        primaryColor: Colors.cyan.shade800,
-        accentColor: Colors.purple,
+     theme: ThemeData(
+          primaryColor: Colors.cyan.shade800,
+          accentColor: Colors.purple,
         selectedRowColor: Colors.purple.shade200,
       ),
     );
