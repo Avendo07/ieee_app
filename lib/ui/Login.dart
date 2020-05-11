@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
         });
 
-        if (userId.length > 0 && userId != null && _isLoginForm) {
+        if ( userId != null && userId.length > 0 && _isLoginForm) {
           widget.loginCallback();
           /*Navigator.push(context, new MaterialPageRoute(builder: (context){
             return App(

@@ -29,6 +29,8 @@ dependencies:
   firebase_core: ^0.4.4
   firebase_storage: ^3.0.8
   url_launcher: ^5.4.2
+  firebase_messaging: ^6.0.13
+  shared_preferences: ^0.5.6+3
   flutter_sticky_header:
 
 dev_dependencies:

@@ -12,7 +12,10 @@ import 'EventPage.dart';
 import 'WorkshopPage.dart';
 import 'class_news.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:io';
 import 'package:bvp_ieee/Auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class App extends StatefulWidget {
                                                                                 //TODO: Add user cred to app, log out fromthe app
@@ -54,11 +57,54 @@ class AppState extends State<App> {
 
   // for firbase part ///////////////////////////////////////////////////////////////////
   DatabaseReference mref = FirebaseDatabase.instance.reference();
-
+  //for notifications support /////
+  FirebaseMessaging _firebaseMessaging;
+  void setUpFirebaseNotifications(){
+    _firebaseMessaging=FirebaseMessaging();
+    firebaseCloudMessaging_Listener();
+    _initNotifications();
+  }
+   void firebaseCloudMessaging_Listener(){
+    if(Platform.isIOS)ios_Permission();
+    _firebaseMessaging.getToken().then((token){
+      print(token);
+    });
+    
+  }
+  _initNotifications() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int value=await prefs.getInt('notSetting') ?? -1;
+    print('value of value(int) in initSettings is $value');
+    if(value!=1)
+      {
+        fcmSubscribe();
+        prefs.setInt('notSetting',1);
+      }
+      else
+      print('already subscribed');
+  }
+  void fcmSubscribe(){
+    _firebaseMessaging.subscribeToTopic('news');
+    print('subscribed to topic news');
+  }
+  void fcmUnsubscribe(){
+    _firebaseMessaging.unsubscribeFromTopic('news');
+    print('unsubscribed from topic news');
+  }
+  
+  void ios_Permission(){
+    _firebaseMessaging.requestNotificationPermissions(
+      IosNotificationSettings(sound:true,badge:true,alert:true)
+                                                    );
+    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings){
+      print("Settings registered : $settings");
+    });
+  }
   @override
   void initState() {
     firebaseRetrive();
     super.initState();
+    setUpFirebaseNotifications();
   }
 
   Future<void> firebaseRetrive() async {
@@ -129,25 +175,48 @@ class AppState extends State<App> {
         preferredSize: Size.fromHeight(120),
         child: new App_Bar(context),
       ),
-      body: TabBarView(
-        children: <Widget>[
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: <Widget>[
-                latestnews(),
-                Card(child: app_news(latest_news.length - 1)),
-                Card(child: app_news(latest_news.length - 2)),
-                Card(child: app_news(latest_news.length - 3)),
-                workshopes(),
-                Card(child: workshopsliding()),
-                //AboutUs(),
-              ],
-            ),
-          ),
-          UpcomingEvents(),
-          society_listview(),
-        ],
+      body: Builder(
+        builder: ( BuildContext buildContext) {
+          _firebaseMessaging.configure(
+      onMessage:(Map<String,dynamic> message) async{
+        print('onMessage $message');
+           final snackBar = SnackBar(
+              duration: Duration(microseconds: 2000),
+              backgroundColor: Theme.of(buildContext).snackBarTheme.backgroundColor,
+              content: Text('${message['title']} : ${message['body']}'),);
+
+// Find the Scaffold in the widget tree and use it to show a SnackBar.
+          Scaffold.of(buildContext).showSnackBar(snackBar);
+          //print('snackbar should be visible by now');
+      },
+      onResume:(Map<String,dynamic> message) async{
+        print('onResume $message');
+      },
+      onLaunch:(Map<String,dynamic> message) async{
+        print('onLaunch $message');
+      }
+    );
+          return TabBarView(
+            children: <Widget>[
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: <Widget>[
+                    latestnews(),
+                    Card(child: app_news(latest_news.length - 1)),
+                    Card(child: app_news(latest_news.length - 2)),
+                    Card(child: app_news(latest_news.length - 3)),
+                    workshopes(),
+                    Card(child: workshopsliding()),
+                    //AboutUs(),
+                  ],
+                ),
+              ),
+              UpcomingEvents(),
+              society_listview(),
+            ],
+          );
+        }
       ),
     );
   }
